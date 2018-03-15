@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoadingController, ToastController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class DataMongodbService {
@@ -9,6 +10,7 @@ export class DataMongodbService {
 	datalist: any = []
 
 	constructor(
+		private storage: Storage,
 		private http: HttpClient, 
 		public loadingCtrl: LoadingController, 
 		public toastCtrl: ToastController
@@ -22,6 +24,7 @@ export class DataMongodbService {
 		toast.present();
 	}
 	getData() {
+		this.storage.remove('myChkData');
 		this.http.get(
 			this.configUrl+'/data-keluarga-kami'
 		)
@@ -54,12 +57,24 @@ export class DataMongodbService {
 	}
 
 	delData(id) {
+		let loader = this.loadingCtrl.create({
+			content: "Please wait...",
+		});
+		loader.present();
+
 		this.http.post(
 			this.configUrl+'/hapus-keluarga-kami',
 			{id: id}
 		)
 		.subscribe(resp => {
 			this.getData()
+		},
+		err => {
+			this.presentToast('Hapus Data Gagal')
+		},
+		() => {
+			this.presentToast('Hapus Data Berhasil')
 		})
+		loader.dismiss();
 	}
 }

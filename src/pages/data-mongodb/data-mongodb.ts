@@ -7,6 +7,7 @@ import {
 	MenuController,
 	Events,
 	PopoverController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { DataMongodbService } from './data-mongodb.services';
 import { MenuDataMongoDB } from './menu'
@@ -24,9 +25,10 @@ export class DataMongodbPage {
 	chkdata: any = []
 
 	constructor(
+		private storage: Storage,
+		private dataMongodbService: DataMongodbService,
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
-		private dataMongodbService: DataMongodbService,
 		public alertCtrl: AlertController,
 		public menuCtrl: MenuController,
 		public popoverCtrl: PopoverController,
@@ -79,6 +81,8 @@ export class DataMongodbPage {
 		else {
 			this.chkdata.splice(id, 1)
 		}
+		this.storage.remove('myChkData');
+		this.storage.set('myChkData', this.chkdata);
 	}
 
 	showMenu() {
