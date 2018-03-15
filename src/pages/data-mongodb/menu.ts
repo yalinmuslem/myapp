@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular'
+import { ViewController, Events } from 'ionic-angular'
 
 import { DataMongodbService } from './data-mongodb.services';
 
@@ -18,11 +18,13 @@ export class MenuDataMongoDB {
 
 	constructor(
 		private dataMongodbService: DataMongodbService, 
-		public viewCtrl: ViewController
+		public viewCtrl: ViewController,
+		public events: Events
 	) {}
 	
 	close() {
 		this.datalist = this.dataMongodbService.getData()
+		this.events.publish('getdata', this.datalist);
 		this.viewCtrl.dismiss();
 	}	
 }

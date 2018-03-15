@@ -5,6 +5,7 @@ import {
 	NavParams, 
 	AlertController, 
 	MenuController,
+	Events,
 	PopoverController } from 'ionic-angular';
 
 import { DataMongodbService } from './data-mongodb.services';
@@ -28,9 +29,13 @@ export class DataMongodbPage {
 		private dataMongodbService: DataMongodbService,
 		public alertCtrl: AlertController,
 		public menuCtrl: MenuController,
-		public popoverCtrl: PopoverController
+		public popoverCtrl: PopoverController,
+		public events: Events
 	) {
 		this.menuCtrl.close()
+		events.subscribe('getdata', (data) => {
+			this.datalist = data
+		})
 	}
 
 	ngOnInit() {

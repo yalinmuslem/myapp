@@ -22,18 +22,12 @@ export class DataMongodbService {
 		toast.present();
 	}
 	getData() {
-		let loader = this.loadingCtrl.create({
-			content: "Please wait...",
-		});
-		loader.present();
-
 		this.http.get(
 			this.configUrl+'/data-keluarga-kami'
 		)
 		.subscribe(res => {
 			this.datalist = res
 		})
-		loader.dismiss();
 		return this.datalist
 	}
 
