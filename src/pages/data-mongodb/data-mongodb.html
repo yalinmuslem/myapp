@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list>
+		<ion-item *ngFor="let d of datalist; let i = index">
+			<ion-checkbox (ionChange)="chkData(d.id.$oid, $event)"></ion-checkbox>
+			<ion-label>{{ i + " " + d.fullName }}</ion-label>
+			<button clear icon-only ion-button (click)="delData(d.id.$oid)" item-end><ion-icon name="trash"></ion-icon></button>
+		</ion-item>
+	</ion-list>
+</ion-content>
