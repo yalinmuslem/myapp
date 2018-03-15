@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+// import { Storage } from '@ionic/storage';
 import { DataMongodbService } from './data-mongodb.services';
 
 @IonicPage()
@@ -15,16 +15,21 @@ export class DataMongodbPage {
 	datalist: any = []
 	chkdata: any = []
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private dataMongodbService: DataMongodbService, private storage: Storage) { }
+	constructor(
+		public navCtrl: NavController, 
+		public navParams: NavParams, 
+		private dataMongodbService: DataMongodbService
+	) { }
 
 	ngOnInit() {
 		this.getData()
 	}
 
 	getData() {
-		this.storage.get('datalist').then((val) => {
-			this.datalist = val
-		})
+		// this.storage.get('datalist').then((val) => {
+			// this.datalist = val
+		// })
+		this.datalist = this.dataMongodbService.getData()
 	}
 
 	ionViewDidLoad() { }

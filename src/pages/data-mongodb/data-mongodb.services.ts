@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoadingController, ToastController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+// import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class DataMongodbService {
 
 	configUrl = 'http://192.168.100.6:7000/belajar-slim/index.php'
-	datalist = []
+	datalist: any = []
 
-	constructor(private http: HttpClient, public loadingCtrl: LoadingController, private storage: Storage, public toastCtrl: ToastController) {}
+	constructor(
+		private http: HttpClient, 
+		public loadingCtrl: LoadingController, 
+		public toastCtrl: ToastController
+	) {}
 	
 	presentToast(msg) {
 		let toast = this.toastCtrl.create({
@@ -19,10 +23,10 @@ export class DataMongodbService {
 		toast.present();
 	}
 	getData() {
-		this.storage.ready()
-		.then(() => {
-			this.storage.remove('datalist')
-		})
+		// this.storage.ready()
+		// .then(() => {
+		// 	this.storage.remove('datalist')
+		// })
 
 		let loader = this.loadingCtrl.create({
 			content: "Please wait...",
@@ -33,12 +37,14 @@ export class DataMongodbService {
 			this.configUrl+'/data-keluarga-kami'
 		)
 		.subscribe(res => {
-			this.storage.ready()
-			.then(() => {
-				this.storage.set('datalist', res)
-			})
+			// this.storage.ready()
+			// .then(() => {
+			// 	this.storage.set('datalist', res)
+			// })
+			this.datalist = res
 		})
 		loader.dismiss();
+		return this.datalist
 	}
 
 	newData(params) {
