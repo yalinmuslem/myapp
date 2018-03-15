@@ -11,13 +11,15 @@ import { HomePage } from '../pages/home/home';
 import { InputArrayPage } from '../pages/input-array/input-array'
 import { DataMongodbPage } from '../pages/data-mongodb/data-mongodb'
 import { DataMongodbService } from '../pages/data-mongodb/data-mongodb.services'
+import { MenuDataMongoDB } from '../pages/data-mongodb/menu'
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     InputArrayPage,
-    DataMongodbPage
+    DataMongodbPage,
+    MenuDataMongoDB,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,8 @@ import { DataMongodbService } from '../pages/data-mongodb/data-mongodb.services'
     MyApp,
     HomePage,
     InputArrayPage,
-    DataMongodbPage
+    DataMongodbPage,
+    MenuDataMongoDB,
   ],
   providers: [
     StatusBar,

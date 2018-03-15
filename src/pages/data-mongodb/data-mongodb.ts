@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, MenuController } from 'ionic-angular';
+import { 
+	IonicPage, 
+	NavController, 
+	NavParams, 
+	AlertController, 
+	MenuController,
+	PopoverController } from 'ionic-angular';
+
 import { DataMongodbService } from './data-mongodb.services';
+import { MenuDataMongoDB } from './menu'
 
 @IonicPage()
 @Component({
@@ -19,7 +27,8 @@ export class DataMongodbPage {
 		public navParams: NavParams, 
 		private dataMongodbService: DataMongodbService,
 		public alertCtrl: AlertController,
-		public menuCtrl: MenuController
+		public menuCtrl: MenuController,
+		public popoverCtrl: PopoverController
 	) {
 		this.menuCtrl.close()
 	}
@@ -65,6 +74,11 @@ export class DataMongodbPage {
 		else {
 			this.chkdata.splice(id, 1)
 		}
+	}
+
+	showMenu() {
+		let popover = this.popoverCtrl.create(MenuDataMongoDB);
+		popover.present();
 	}
 
 }
