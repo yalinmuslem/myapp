@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-// import { Storage } from '@ionic/storage';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { DataMongodbService } from './data-mongodb.services';
 
 @IonicPage()
@@ -18,7 +17,8 @@ export class DataMongodbPage {
 	constructor(
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
-		private dataMongodbService: DataMongodbService
+		private dataMongodbService: DataMongodbService,
+		public alertCtrl: AlertController
 	) { }
 
 	ngOnInit() {
@@ -26,18 +26,33 @@ export class DataMongodbPage {
 	}
 
 	getData() {
-		// this.storage.get('datalist').then((val) => {
-			// this.datalist = val
-		// })
 		this.datalist = this.dataMongodbService.getData()
 	}
 
 	ionViewDidLoad() { }
 
 	delData(id) {
-		this.dataMongodbService.delData(id)
-		this.navCtrl.pop()
-		this.navCtrl.push(DataMongodbPage);
+		let confirm = this.alertCtrl.create({
+			title: 'Hapus Data',
+			message: 'Anda yakin menghapus data ini',
+			buttons: [
+				{
+					text: 'Batal',
+					handler: () => {
+						
+					}
+				},
+				{
+					text: 'Yakin',
+					handler: () => {
+						this.dataMongodbService.delData(id)
+						this.navCtrl.pop()
+						this.navCtrl.push(DataMongodbPage);
+					}
+				}
+			]
+		});
+		confirm.present();
 	}
 
 	chkData(id, event) {
