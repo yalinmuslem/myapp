@@ -1,16 +1,26 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
+import { InputArrayPage } from '../pages/input-array/input-array'
+import { DataMongodbPage } from '../pages/data-mongodb/data-mongodb'
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
 })
 
 export class MyApp {
+	@ViewChild('mycontent') nav
+	
+	public menuCtrl: MenuController
+
 	rootPage:any = HomePage;
+	Menu: any[] = [
+		{ link: 'Input Data', pages: InputArrayPage },
+		{ link: 'Data', pages: DataMongodbPage }
+	];
 
 	constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
 		platform.ready().then(() => {
@@ -20,5 +30,9 @@ export class MyApp {
 			splashScreen.hide();
 		});
 	}
+  	gotoPage(a) {
+  	  this.nav.push(a);
+  	}
+
 }
 

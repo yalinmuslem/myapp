@@ -1,16 +1,11 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      {{ title }}
-    </ion-title>
-  </ion-navbar>
+    <ion-toolbar>
+    	<button ion-button menuToggle left><ion-icon name="menu"></ion-icon></button>
+	    <ion-title>
+	      {{ title }}
+	    </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-	Menu
-	<ol>
-		<li *ngFor="let m of Menu">
-			<a (click)="gotoPage(m.pages)">{{ m.link }}</a>
-		</li>
-	</ol>	
 </ion-content>

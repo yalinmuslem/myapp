@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, MenuController } from 'ionic-angular';
 import { DataMongodbService } from './data-mongodb.services';
 
 @IonicPage()
@@ -18,8 +18,11 @@ export class DataMongodbPage {
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		private dataMongodbService: DataMongodbService,
-		public alertCtrl: AlertController
-	) { }
+		public alertCtrl: AlertController,
+		public menuCtrl: MenuController
+	) {
+		this.menuCtrl.close()
+	}
 
 	ngOnInit() {
 		this.getData()

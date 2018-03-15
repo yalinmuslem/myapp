@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 
 import { DataMongodbService } from '../data-mongodb/data-mongodb.services'
 
@@ -13,7 +13,14 @@ export class InputArrayPage {
 	nickname: string = 'Papi'
 	birthDate : Date = new Date('1987-09-14')
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private dataMongodb: DataMongodbService) {}
+	constructor(
+		public navCtrl: NavController, 
+		public navParams: NavParams, 
+		private dataMongodb: DataMongodbService, 
+		public menuCtrl: MenuController
+	) {
+		this.menuCtrl.close()
+	}
 
 	newData() {
 		this.dataMongodb.newData({fullname: this.fullname, nickname: this.nickname})
