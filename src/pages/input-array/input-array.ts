@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, Events } from 'ionic-angular';
 
 import { DataMongodbService } from '../data-mongodb/data-mongodb.services'
 
@@ -9,6 +9,7 @@ import { DataMongodbService } from '../data-mongodb/data-mongodb.services'
   templateUrl: 'input-array.html',
 })
 export class InputArrayPage {
+	datalist: any = []
 	fullname: string = 'Mochammad Yalinulloh'
 	nickname: string = 'Papi'
 	birthDate : Date = new Date('1987-09-14')
@@ -17,7 +18,8 @@ export class InputArrayPage {
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		private dataMongodb: DataMongodbService, 
-		public menuCtrl: MenuController
+		public menuCtrl: MenuController,
+		public events: Events
 	) {
 		this.menuCtrl.close()
 	}
@@ -25,6 +27,11 @@ export class InputArrayPage {
 	newData() {
 		this.dataMongodb.newData({fullname: this.fullname, nickname: this.nickname})
 		this.navCtrl.pop()
+	}
+
+	ngOnDestroy() {
+		this.datalist = this.dataMongodb.getData()
+		this.events.publish('getdata', this.datalist);
 	}
 
 }
