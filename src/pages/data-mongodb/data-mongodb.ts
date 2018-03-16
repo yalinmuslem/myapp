@@ -37,6 +37,7 @@ export class DataMongodbPage {
 		this.menuCtrl.close()
 		events.subscribe('getdata', (data) => {
 			this.datalist = data
+			console.log(this.datalist)
 		})
 	}
 

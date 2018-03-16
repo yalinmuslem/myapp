@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, Events } from 'ionic-angular'
+import { ViewController, Events, NavController } from 'ionic-angular'
 import { Storage } from '@ionic/storage';
 
 import { DataMongodbService } from './data-mongodb.services';
@@ -16,11 +16,13 @@ import { DataMongodbService } from './data-mongodb.services';
 })
 export class MenuDataMongoDB {
 
+	done = false
 	datalist: any = []
 
 	constructor(
 		private storage: Storage,
 		private dataMongodbService: DataMongodbService, 
+		public navCtrl: NavController,
 		public viewCtrl: ViewController,
 		public events: Events
 	) {	}
@@ -32,12 +34,25 @@ export class MenuDataMongoDB {
 	}
 
 	delData() {
+		var z = 0
 		this.storage.get('myChkData').then((val) => {
 			for(let i of val) {
 				this.dataMongodbService.delData(i)
+				z++
+			}
+			console.log(z, val.length)
+			if(z >= val.length) {
+				this.done = true
+			}
+			if(this.done) {
+				this.storage.remove('myChkData');
+				this.viewCtrl.dismiss();
 			}
 		});
-		this.storage.remove('myChkData');
-		this.getData()
+	}
+
+	ngOnDestroy() {
+		this.datalist = this.dataMongodbService.getData()
+		this.events.publish('getdata', this.datalist);
 	}
 }
