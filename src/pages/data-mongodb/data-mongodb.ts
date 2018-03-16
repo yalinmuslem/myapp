@@ -6,6 +6,7 @@ import {
 	AlertController, 
 	MenuController,
 	Events,
+	LoadingController, 
 	PopoverController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
@@ -32,24 +33,30 @@ export class DataMongodbPage {
 		public alertCtrl: AlertController,
 		public menuCtrl: MenuController,
 		public popoverCtrl: PopoverController,
+		public loadingCtrl: LoadingController, 
 		public events: Events
 	) {
 		this.menuCtrl.close()
+		this.datalist = this.dataMongodbService.getData()
+
 		events.subscribe('getdata', (data) => {
 			this.datalist = data
-			console.log(this.datalist)
 		})
 	}
 
-	ngOnInit() {
-		this.getData()
-	}
+	// ngOnInit() {
+	// 	let loader = this.loadingCtrl.create({
+	// 		content: "Please wait...",
+	// 	});
+	// 	loader.present();
+	// 	this.getData()
+	// 	loader.dismiss();
+	// }
 
-	getData() {
-		this.datalist = this.dataMongodbService.getData()
-	}
+	// getData() {
+	// }
 
-	ionViewDidLoad() { }
+	// ionViewDidLoad() { }
 
 	delData(id) {
 		let confirm = this.alertCtrl.create({
@@ -65,9 +72,18 @@ export class DataMongodbPage {
 				{
 					text: 'Yakin',
 					handler: () => {
+						let loader = this.loadingCtrl.create({
+							content: "Please wait...",
+						});
+						loader.present();
+
 						this.dataMongodbService.delData(id)
+
+						loader.dismiss();
+
 						this.navCtrl.pop()
 						this.navCtrl.push(DataMongodbPage);
+
 					}
 				}
 			]

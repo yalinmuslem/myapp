@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { InputArrayPage } from '../pages/input-array/input-array'
 import { DataMongodbPage } from '../pages/data-mongodb/data-mongodb'
 
 @Component({
@@ -18,7 +17,6 @@ export class MyApp {
 
 	rootPage:any = HomePage;
 	Menu: any[] = [
-		{ link: 'Input Data', pages: InputArrayPage },
 		{ link: 'Data', pages: DataMongodbPage }
 	];
 
@@ -30,6 +28,7 @@ export class MyApp {
 			splashScreen.hide();
 		});
 	}
+
   	gotoPage(a) {
   	  this.nav.push(a);
   	}

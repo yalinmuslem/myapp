@@ -57,11 +57,6 @@ export class DataMongodbService {
 	}
 
 	delData(id) {
-		let loader = this.loadingCtrl.create({
-			content: "Please wait...",
-		});
-		loader.present();
-
 		this.http.post(
 			this.configUrl+'/hapus-keluarga-kami',
 			{id: id}
@@ -75,6 +70,5 @@ export class DataMongodbService {
 		() => {
 			this.presentToast('Hapus Data Berhasil')
 		})
-		loader.dismiss();
 	}
 }

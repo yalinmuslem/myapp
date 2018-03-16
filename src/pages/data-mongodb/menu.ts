@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ViewController, Events, NavController } from 'ionic-angular'
 import { Storage } from '@ionic/storage';
 
+import { InputArrayPage } from '../../pages/input-array/input-array'
 import { DataMongodbService } from './data-mongodb.services';
 
 @Component({
@@ -11,6 +12,7 @@ import { DataMongodbService } from './data-mongodb.services';
 			<ion-list-header>Menu Data</ion-list-header>
 			<button ion-item (click)="getData()" icon-right>Refresh <ion-icon name="refresh" item-end></ion-icon></button>
 			<button ion-item (click)="delData()" icon-right>Hapus <ion-icon name="trash" item-end></ion-icon></button>
+			<button ion-item (click)="newData()" icon-right>Tambah Data <ion-icon name="add" item-end></ion-icon></button>
 		</ion-list>
 		`
 })
@@ -40,7 +42,6 @@ export class MenuDataMongoDB {
 				this.dataMongodbService.delData(i)
 				z++
 			}
-			console.log(z, val.length)
 			if(z >= val.length) {
 				this.done = true
 			}
@@ -49,6 +50,11 @@ export class MenuDataMongoDB {
 				this.viewCtrl.dismiss();
 			}
 		});
+	}
+
+	newData() {
+		this.navCtrl.push(InputArrayPage);
+		this.viewCtrl.dismiss();
 	}
 
 	ngOnDestroy() {
