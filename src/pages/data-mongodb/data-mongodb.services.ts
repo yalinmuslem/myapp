@@ -63,12 +63,6 @@ export class DataMongodbService {
 		)
 		.subscribe(resp => {
 			this.getData()
-		},
-		err => {
-			this.presentToast('Hapus Data Gagal')
-		},
-		() => {
-			this.presentToast('Hapus Data Berhasil')
 		})
 	}
 }
