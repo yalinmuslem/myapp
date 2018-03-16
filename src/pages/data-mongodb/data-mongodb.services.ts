@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoadingController, ToastController } from 'ionic-angular';
+import { 
+	LoadingController, 
+	Events, 
+	ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 @Injectable()
@@ -13,7 +16,8 @@ export class DataMongodbService {
 		private storage: Storage,
 		private http: HttpClient, 
 		public loadingCtrl: LoadingController, 
-		public toastCtrl: ToastController
+		public toastCtrl: ToastController,
+		public events: Events
 	) {}
 	
 	presentToast(msg) {
@@ -30,6 +34,8 @@ export class DataMongodbService {
 		)
 		.subscribe(res => {
 			this.datalist = res
+			console.log(res)
+			this.events.publish('getdata', res);
 		})
 		return this.datalist
 	}

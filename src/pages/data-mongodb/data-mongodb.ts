@@ -37,26 +37,26 @@ export class DataMongodbPage {
 		public events: Events
 	) {
 		this.menuCtrl.close()
-		this.datalist = this.dataMongodbService.getData()
-
 		events.subscribe('getdata', (data) => {
 			this.datalist = data
 		})
 	}
 
-	// ngOnInit() {
-	// 	let loader = this.loadingCtrl.create({
-	// 		content: "Please wait...",
-	// 	});
-	// 	loader.present();
-	// 	this.getData()
-	// 	loader.dismiss();
-	// }
+	ngOnInit() {
+		let loader = this.loadingCtrl.create({
+			content: "Please wait...",
+		});
+		loader.present();
+		this.getData()
+		loader.dismiss();
+	}
 
-	// getData() {
-	// }
+	getData() {
+		this.datalist = this.dataMongodbService.getData()
+		this.events.publish('getdata', this.datalist);
+	}
 
-	// ionViewDidLoad() { }
+	ionViewDidLoad() { }
 
 	delData(id) {
 		let confirm = this.alertCtrl.create({
